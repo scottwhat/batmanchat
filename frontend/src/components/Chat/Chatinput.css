@@ -1,0 +1,62 @@
+.input-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.6rem;
+    padding: 0.85rem 1.25rem;
+    background: rgba(0, 0, 0, 0.5);
+    border-top: 1px solid var(--border);
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.input-container:focus-within {
+    border-top-color: var(--green-dim);
+}
+
+.prompt-symbol {
+    color: var(--green);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    user-select: none;
+    flex-shrink: 0;
+    padding-bottom: 0.2rem;
+    text-shadow: 0 0 6px var(--green-dim);
+}
+
+.terminal-input {
+    flex: 1;
+    min-height: 2.4rem;
+    max-height: 10rem;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--white-85);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    caret-color: var(--green);
+    resize: none;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+    overflow-y: auto;
+    padding: 0.2rem 0;
+}
+
+.terminal-input::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+    font-style: italic;
+}
+
+.send-hint {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.2);
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding-bottom: 0.25rem;
+    transition: color 0.15s;
+}
+
+.input-container:focus-within .send-hint {
+    color: var(--green-dim);
+}

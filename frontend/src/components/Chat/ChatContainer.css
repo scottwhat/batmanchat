@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+    width: 92%;
+    height: 96%;
+    border: 1px solid var(--white-12);
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.left-container {
+    width: 220px;
+    flex-shrink: 0;
+    border-right: 1px solid var(--border);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.right-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+
+.right-container .chat-output {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.right-container .input-container {
+    flex-shrink: 0;
+}

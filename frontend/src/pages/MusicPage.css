@@ -1,0 +1,32 @@
+.music-page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    font-family: var(--font-mono);
+    color: var(--white-50);
+    gap: 1.5rem;
+}
+
+.music-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--green-dim);
+}
+
+.video-container {
+    border: 1px solid var(--white-12);
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+}
+
+.video-container:hover {
+    border-color: var(--green-dim);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 20px var(--green-glow);
+}

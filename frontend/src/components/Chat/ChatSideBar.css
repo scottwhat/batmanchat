@@ -1,0 +1,95 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 1rem 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--white-50);
+    gap: 1rem;
+}
+
+.top-container {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.75rem;
+}
+
+.new-chat-btn {
+    background: transparent;
+    border: 1px solid var(--white-12);
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-family: var(--font-mono);
+    color: var(--white-50);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    white-space: nowrap;
+    padding: 0.45rem 0.65rem;
+    letter-spacing: 0.06em;
+    transition: background 0.15s, border-color 0.15s, color 0.15s, box-shadow 0.15s;
+    border-radius: 2px;
+    text-transform: uppercase;
+}
+
+.new-chat-btn:hover {
+    background: var(--green-glow);
+    border-color: var(--green-dim);
+    color: var(--green);
+    box-shadow: 0 0 8px var(--green-glow);
+}
+
+.batsymbol {
+    height: 7px;
+    width: 20px;
+    opacity: 0.6;
+}
+
+.new-chat-btn:hover .batsymbol {
+    opacity: 1;
+    filter: drop-shadow(0 0 3px var(--green));
+}
+
+.sidebar-section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.25);
+    padding: 0 0.25rem;
+}
+
+.chat-history {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.chat-item {
+    padding: 0.45rem 0.6rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.75rem;
+    cursor: pointer;
+    border-left: 2px solid transparent;
+    border-radius: 0 2px 2px 0;
+    transition: all 0.15s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: 0.02em;
+}
+
+.chat-item:hover {
+    color: var(--white-85);
+    border-left-color: var(--green-dim);
+    background: var(--green-glow);
+}
+
+.chat-item.active {
+    color: var(--green);
+    border-left-color: var(--green);
+    background: var(--green-glow);
+}
