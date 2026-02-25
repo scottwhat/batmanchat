@@ -4,7 +4,7 @@ import { useState } from 'react'
 const Chatinput = ({ onSend }: { onSend: (text: string) => void }) => {
 
   const [inputText, setInputText] = useState('')
-
+  
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
