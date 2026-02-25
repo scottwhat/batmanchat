@@ -9,15 +9,6 @@ dotenv.config()
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-// ─── BASIC CONNECTION TEST ────────────────────────────────────────────────────
-// POST /api/chat/:conversationId
-// Body: { message: "..." }
-// No DB, no auth — just sends message straight to OpenAI and streams back
-
-// export const streamChat = async (req, res) => {
-//     const { message } = req.body;
-// }
-
 
 export const streamChat = async (req, res) => {
   const { message } = req.body;

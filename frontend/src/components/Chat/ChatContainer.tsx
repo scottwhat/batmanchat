@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './ChatContainer.css'
+import type { Message } from '../../types'
 
 import ChatSideBar from './ChatSideBar'
 import Chatinput from './Chatinput'
@@ -9,23 +10,46 @@ import Chatoutput from './Chatoutput'
 // keep state in components, not pages they are just layouts
 
 const ChatContainer = () => {
-  const [messageState, setMessageState] = useState([[]])
+  const [messages, setMessages] = useState<Message[]>([])
+  const [streamingMessage, setStreamingMessage] = useState('')
 
-  // 1. SendMessage build a function to pass into chatinput as a prop
-  // this will take in the text string, 
-  // let it mutate up here in the controller
+  const handleSendMessage = async (text: string) => {
+    const userMsg: Message = { id: crypto.randomUUID(), role: 'user', content: text }
+    setMessages(prev => [...prev, userMsg])
+    setStreamingMessage('')
 
-  // store state in chatcontainer
-  // 
+    const response = await fetch('http://localhost:3000/api/chat/test', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text }),
+    })
 
+    const reader = response.body!.getReader()
+    const decoder = new TextDecoder()
+    let fullResponse = ''
 
-  //2.Update the chat output ui with the new message 
-
-  //. save the full response to the DB under the correct conversation
-
-  //3. await the resonse and stream it in
-
-  //3. update the ui on each stream connection 
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) break
+      const chunk = decoder.decode(value)
+      for (const line of chunk.split('\n')) {
+        if (!line.startsWith('data: ')) continue
+        const data = line.slice(6)
+        if (data === '[DONE]') {
+          setMessages(prev => [...prev, {
+            id: crypto.randomUUID(), role: 'assistant', content: fullResponse
+          }])
+          setStreamingMessage('')
+        } else {
+          try {
+            const { token } = JSON.parse(data)
+            fullResponse += token
+            setStreamingMessage(fullResponse)
+          } catch {}
+        }
+      }
+    }
+  }
 
   return (
     <div className="container">
@@ -33,9 +57,8 @@ const ChatContainer = () => {
         <ChatSideBar />
       </div>
       <div className="right-container">
-        <Chatoutput />
-        <Chatinput />
-
+        <Chatoutput messages={messages} streamingMessage={streamingMessage} />
+        <Chatinput onSend={handleSendMessage} />
       </div>
     </div>
   )
