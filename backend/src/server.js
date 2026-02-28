@@ -4,10 +4,12 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+import { clerkMiddleware } from '@clerk/express';
 import { connectDB } from './lib/db.js';
-// import authRoutes from './routes/auth.route.js';
 // import conversationRoutes from './routes/conversation.route.js';
 import chatRoutes from './routes/chat.route.js';
+
+//add authroutes 
 
 dotenv.config()
 
@@ -22,6 +24,7 @@ app.use(cors({
 //build up incrementally dont skip/build the 
 
 //middleware
+app.use(clerkMiddleware())
 app.use(express.json())
 app.use(cookieParser())
 import OpenAI from "openai";
@@ -35,7 +38,6 @@ app.get('/api/ping', (_req, res) => {
 })
 
 app.use('/api/chat', chatRoutes)
-
 
 // test openai route
 app.get('/api/batman', async (_req, res) => {

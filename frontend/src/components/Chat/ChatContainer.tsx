@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useAuth } from '@clerk/clerk-react'
 import './ChatContainer.css'
 import type { Message } from '../../types'
 
@@ -9,8 +10,9 @@ import Chatoutput from './Chatoutput'
 
 // break down the steps and recreate
 const ChatContainer = () => {
+  const { getToken } = useAuth()
 
-  // previous messages are stored in 
+  // previous messages are stored in
   const [messages, setMessages] = useState<Message[]>([])
   const [streamingMessage, setStreamingMessage] = useState('')
 
@@ -20,9 +22,13 @@ const ChatContainer = () => {
     setMessages(prev => [...prev, userMsg])
     setStreamingMessage('')
 
+    const token = await getToken()
     const response = await fetch('http://localhost:3000/api/chat/test', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
       body: JSON.stringify({ message: text, history: messages}),
     })
 
@@ -59,9 +65,7 @@ const ChatContainer = () => {
 
   return (
     <div className="container">
-      <div className="left-container">
-        <ChatSideBar />
-      </div>
+
       <div className="right-container">
         <Chatoutput messages={messages} streamingMessage={streamingMessage} />
         <Chatinput onSend={handleSendMessage} />
