@@ -8,6 +8,8 @@ const Chatinput = ({ onSend }: { onSend: (text: string) => void }) => {
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
+
+      //executes the handleMessage 
       if (inputText.trim()) {
         onSend(inputText.trim())
         setInputText('')
@@ -15,6 +17,7 @@ const Chatinput = ({ onSend }: { onSend: (text: string) => void }) => {
     }
   }
 
+  //run the haandler that was passed in 
   return (
     <div className="input-container">
       <span className="prompt-symbol">{'>'}</span>
@@ -26,6 +29,8 @@ const Chatinput = ({ onSend }: { onSend: (text: string) => void }) => {
         placeholder="Ask Alfred..."
         rows={1}
       />
+
+      {/* add a new handler for  */}
       <span className="send-hint">enter ↵</span>
     </div>
   )

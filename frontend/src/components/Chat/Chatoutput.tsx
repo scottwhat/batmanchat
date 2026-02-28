@@ -6,6 +6,10 @@ const Chatoutput = ({ messages, streamingMessage }: {
   streamingMessage: string
 }) => {
 
+
+  // chatoutput asccepts messages, maps them into the output container, 
+  // the stream message renders seperately underneath. 
+  // its remapping over it all but react saves what it can and doenst render it all 
   return (
     <div className="chat-output">
       {/* TODO: chat styling logic, use chat output, msg role. user = left, assistant = right  */}

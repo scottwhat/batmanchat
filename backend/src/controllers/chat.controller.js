@@ -1,6 +1,7 @@
 
 import OpenAI from 'openai';
 import dotenv from 'dotenv'
+import { buildBatmanSystemPrompt } from '../data/batman-context.js';
 // import Conversation from '../models/Conversation.js';
 // import Message from '../models/Message.js';
 // import { buildBatmanSystemPrompt } from '../data/batman-context.js';
@@ -10,8 +11,11 @@ dotenv.config()
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 
+// chatcontroller 
+//stream chat is the main controller, accepts request from the front end, fires it off
+// awaits a streamed response and 
 export const streamChat = async (req, res) => {
-  const { message } = req.body;
+  const { message, history = [] } = req.body;
 
   if (!message?.trim()) {
     return res.status(400).json({ message: 'Message is required' });
@@ -22,11 +26,15 @@ export const streamChat = async (req, res) => {
   res.setHeader('Connection', 'keep-alive');
   res.setHeader('Access-Control-Allow-Origin', process.env.CLIENT_URL);
   res.setHeader('Access-Control-Allow-Credentials', 'true');
+  // awaits the response from the openai.chat.completions.create chat, with stream set to true 
+  // here i need to inject the chat history and the batman instructions + database 
 
   try {
     const stream = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
-      messages: [{ role: 'user', content: message.trim() }],
+      messages: [{role: 'system', content: buildBatmanSystemPrompt() },
+          ...history.map(m => ({ role: m.role, content: m.content })),
+        { role: 'user', content: message.trim() }],
       stream: true,
     });
 
@@ -37,6 +45,7 @@ export const streamChat = async (req, res) => {
       }
     }
 
+    // 
     res.write(`data: [DONE]\n\n`);
     res.end();
   } catch (error) {

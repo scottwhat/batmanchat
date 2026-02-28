@@ -19,4 +19,6 @@ const ChatSideBar = () => {
   )
 }
 
+// need to update the side bar 
+
 export default ChatSideBar

@@ -15,30 +15,24 @@ get state reading into the front end - done
 Review the structure updates
     - front end Chatcontainer holds stante and handlers 
 
-link up db 
+DB connection - stored as conversations
+Build out data model 
 
-Front end receiving of chunks,
-while chunks update buiold out the response string 
+build chat container, chait input, chatoutput updating 
+user pen and paper, step out build, striaghten ideas and thoughts 
 
+1. breakdown and rebuild the code,
+chatcontainer, chatinput chatoutput. manage the backend and frontend composition
+2. how would I build it out myself, steps and approach. testing as i go 
+3. batman prompt injection, need chat history? - DONE - ch
+3. build previous chat history, fed back in for continuous chats 
+11. new chat button needs to make a new conversation 
+3. do all of the functions for the chatsidebar
+4.build out the conversations storage
+5. build the chat messages been saved to conversations
+6. chat messages saved to DB and kept in sync? fast fetches from mongodb? caching? 
+7. add authentication
+9. riddler page
+10. todo page - add to DB. 
+11. 
 
-
-
-
-
-
-### frontend
-build handlers and state to manage the input and received data 
-handlers for what comes in and out + passed down to components from the state parent
-
-
-## backend
-controllers manage the backend data, send it off to services, receivng and formatting the responses 
-
-## manage the data flow
-
-
-
-## chatcontainer chatinput chatoutput data flow
-
-chatcontainer defines the state and handlers, how 
-understand the isStreaming 
